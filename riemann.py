@@ -7,7 +7,8 @@ import math
 
 def getInput():
     #take input (menu &eval()) --> a, b, n
-
+    #validate all inputs (a,b,n)
+    
     #function holder
     func = None
 
@@ -59,7 +60,7 @@ def calculateDX(a, b, n):
 
     return dx
 
-def lRiemann(a, b, n, func, *args):
+def leftHandRiemann(a, b, n, func, *args):
     #L-riemann
     dx = calculateDX(a, b, n)
     riemann = 0
@@ -70,7 +71,7 @@ def lRiemann(a, b, n, func, *args):
 
     return dx * riemann
 
-def rRiemann(a, b, n, func, *args):
+def rightHandRiemann(a, b, n, func, *args):
     #R-riemann
     dx = calculateDX(a, b, n)
     riemann = 0
@@ -81,9 +82,52 @@ def rRiemann(a, b, n, func, *args):
 
     return dx * riemann
 
-#M-riemann
-#T-riemann
-#S-riemann
+def midpointRiemann(a, b, n, func, *args):
+    #M-riemann
+    dx = calculateDX(a, b, n)
+    riemann = 0
+    
+    #add up sum
+    for i in range(1, n+1):
+        param = (a+(i*dx)) + (a+((i-1)*dx))
+        param *= 1/2
+        riemann += func(param, *args)
+
+    return dx * riemann
+
+def trapezoidalRiemann(a, b, n, func, *args):
+    #T-riemann
+    dx = calculateDX(a, b, n)
+    riemann = 0
+    
+    #add up sum
+    for i in range(0, n+1):
+        if (i != 0 and i != n):
+            riemann += 2 * func(a+(i*dx), *args)
+        else:
+            riemann += func(a+(i*dx), *args)
+
+    return dx/2 * riemann
+
+def simpsonsRiemann(a, b, n, func, *args):
+    #S-riemann
+    if(n % 2 != 0):
+        print("n is not even, defaulting to {}".format(n-1))
+        n = n-1
+    dx = calculateDX(a, b, n)
+    riemann = 0
+    
+    #add up sum
+    for i in range(0, n+1):
+        if (i == 0 or i == n):
+            riemann += func(a+(i*dx), *args)
+        elif (i % 2 == 0):
+            riemann += 2 * func(a+(i*dx), *args)
+        elif (i % 2 != 0):
+            riemann += 4 * func(a+(i*dx), *args)
+
+    return dx/3 * riemann
+    
 
 if __name__ == "__main__":
 
@@ -91,8 +135,13 @@ if __name__ == "__main__":
     [func, a, b, n] = getInput()
 
     #evaluate using all methods
-    print("function:",func.__name__, "(x), from {} to {}".format(a, b))
-    print("Left-Hand Riemann: ",lRiemann(a, b, n, func))
-    print("Right-Hand Riemann: ",rRiemann(a, b, n, func))
+    print("\nfunction:",func.__name__, "(x), from {} to {}".format(a, b), end="\n\n")
     
-    #find closest solution
+    print("Left-Hand:   {:.4f}".format(leftHandRiemann(a, b, n, func)))
+    print("Right-Hand:  {:.4f}".format(rightHandRiemann(a, b, n, func)))
+    print("Midpoint:    {:.4f}".format(midpointRiemann(a, b, n, func)))
+    print("Trapezoidal: {:.4f}".format(trapezoidalRiemann(a, b, n, func)))
+    print("Simpsons:    {:.4f}".format(simpsonsRiemann(a, b, n, func)))
+
+    dummy = input()
+    
