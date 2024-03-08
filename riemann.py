@@ -20,7 +20,6 @@ Please select eqn to approximate
 3) y=1/x
 4) y=e^x
 5) y=ln(x)
-6) y=sin(x)
 """
     
     print(menu)
@@ -39,8 +38,6 @@ Please select eqn to approximate
         func = nhf.exp_e
     elif(inp == "5"):
         func = nhf.ln
-    elif(inp == "6"):
-        math.sin
     else:
         print("no function assigned, defaulted to y=x")
         func = nhf.y
