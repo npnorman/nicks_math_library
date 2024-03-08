@@ -57,4 +57,6 @@ if __name__ == "__main__":
     __testFunc__(exp, 0, 5, 2)
     __testFunc__(log_b, 1, 5, 10)
     __testFunc__(ln, 1, 5)
-    __testFunc__(sin, -1, 1)
+
+
+    dummy = input()

@@ -10,3 +10,5 @@ print(nhf.x_cb(3))
 
 for x in range(1, 11):
     print(nhf.exp(x, 5))
+
+dummy = input()
