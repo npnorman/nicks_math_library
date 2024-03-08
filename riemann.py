@@ -90,10 +90,9 @@ if __name__ == "__main__":
     #test input
     [func, a, b, n] = getInput()
 
+    #evaluate using all methods
     print("function:",func.__name__, "(x), from {} to {}".format(a, b))
     print("Left-Hand Riemann: ",lRiemann(a, b, n, func))
     print("Right-Hand Riemann: ",rRiemann(a, b, n, func))
-
-    #get what func to eval
-    #evaluate using all methods
+    
     #find closest solution
