@@ -48,6 +48,22 @@ class Lexer():
             elif(char == "-"):
                 #if character is -, sub
                 tempToken = token.Token('-', "SUB")
+            
+            elif(char == "*"):
+                #if character is -, sub
+                tempToken = token.Token('*', "MULT")
+            
+            elif(char == "/"):
+                #if character is -, sub
+                tempToken = token.Token('/', "DIV")
+
+            elif(char == "("):
+                #if character is -, sub
+                tempToken = token.Token('(', "LPAR")
+            
+            elif(char == ")"):
+                #if character is -, sub
+                tempToken = token.Token(')', "RPAR")
 
             else:
                 tempToken = None
