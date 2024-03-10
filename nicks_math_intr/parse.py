@@ -6,21 +6,24 @@ import token
 import lexer
 
 class Parser():
-    def __init__(self, tokens):
-        #list of tokens
-        self._tokens = tokens
+    def __init__(self):
+        pass
 
-        #binary tree setup
-        self._binTree = None
+    @staticmethod
+    def tokensToBinTree(tokens):
+        return "tree"
 
 if __name__ == "__main__":
 
     #set up equation
-    lex = lexer.Lexer("3 + 5.7")
-    print(lex.equation)
-    for tok in lex.tokens:
+    lex = "3 + 5.7"
+    tokens = lexer.Lexer().eqToTokens(lex)
+    print(lex)
+    for tok in tokens:
         print(f"[{tok}]", end=", ")
     print("\n")
 
     #put into parser
+    tree = Parser().tokensToBinTree(tokens)
     #print tree
+    print(tree)

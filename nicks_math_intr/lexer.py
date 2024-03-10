@@ -9,6 +9,13 @@ class Lexer():
         pass
     
     @staticmethod
+    def infixToPostfix(eqn):
+        #use shunting yard algorithm
+
+
+        return eqn
+
+    @staticmethod
     def eqToTokens(equation):
         #convert to list of tokens
 
@@ -18,7 +25,7 @@ class Lexer():
         tokens = []
 
         #remove whitespace
-        eq = equation
+        eq = Lexer().infixToPostfix(equation)
         eq = eq.strip()
         eq = eq.replace(' ', '')
 
