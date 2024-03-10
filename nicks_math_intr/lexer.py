@@ -103,6 +103,7 @@ class Lexer():
 
         else:
             tempToken = None
+            print("unknown symbol",char)
 
         return tempToken
 
