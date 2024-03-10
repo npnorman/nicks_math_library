@@ -11,7 +11,7 @@ class Lexer():
         self._tokens = []
 
         #convert when initialized
-        self.convertEqToTokens()
+        self._convertEqToTokens()
 
     def __str__(self):
         return self._equation
@@ -36,10 +36,19 @@ class Lexer():
 
         #go character by character
         for char in eq:
+            #create a variable token and append
             if(char == 'x'):
-            #if character is an x
-                #create a variable token and append
-                tempToken = token.Token(None, "VAR")
+                #if character is an x
+                tempToken = token.Token('sym', "VAR")
+
+            elif(char == "+"):
+                #if character is +, plus
+                tempToken = token.Token('+', "PLUS")
+
+            elif(char == "-"):
+                #if character is -, sub
+                tempToken = token.Token('-', "SUB")
+
             else:
                 tempToken = None
 
@@ -55,4 +64,7 @@ if __name__ == "__main__":
     lex = Lexer("5 + 3 * x - 4 / 3 + (5 + 4 )")
     print(lex)
     print("converting")
-    print(lex.tokens)
+    
+    for tok in lex.tokens:
+        print(f"[{tok}]", end=", ")
+    print("\n")
