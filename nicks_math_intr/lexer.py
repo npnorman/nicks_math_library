@@ -9,7 +9,7 @@ class Lexer():
         pass
     
     @staticmethod
-    def _convertEqToTokens(self, equation):
+    def eqToTokens(equation):
         #convert to list of tokens
 
         #temp token
@@ -31,25 +31,26 @@ class Lexer():
             else:
                 if(tempNum != ""):
                     #pass last number made
-                    tempToken = self._convertNumberToken(tempNum)
+                    tempToken = Lexer()._convertNumberToken(tempNum)
                     tempNum = ""
                     tokens.append(tempToken)
 
                 #convert current char
-                tempToken = self._convertNonNumberToken(char)
+                tempToken = Lexer()._convertNonNumberToken(char)
 
                 #append to list
                 tokens.append(tempToken)
 
         if(tempNum != ""):
             #pass last number made
-            tempToken = self._convertNumberToken(tempNum)
+            tempToken = Lexer()._convertNumberToken(tempNum)
             tempNum = ""
             tokens.append(tempToken)
 
         return tokens
 
-    def _convertNumberToken(self, str):
+    @staticmethod
+    def _convertNumberToken(str):
 
         tempToken = None
         num = float(str)
@@ -57,7 +58,8 @@ class Lexer():
 
         return tempToken
 
-    def _convertNonNumberToken(self, char):
+    @staticmethod
+    def _convertNonNumberToken(char):
         
         tempToken = None
         
@@ -98,10 +100,10 @@ class Lexer():
 
 #testing
 if __name__ == "__main__":
-    lex = Lexer("5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8")
+    lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
     print(lex)
     print("converting")
-    
-    for tok in lex.tokens:
+    tokens = Lexer.eqToTokens(lex)
+    for tok in tokens:
         print(f"[{tok}]", end=", ")
     print("\n")
