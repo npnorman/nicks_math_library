@@ -5,33 +5,20 @@
 import token as token
 
 class Lexer():
-    def __init__(self, equation):
-        #take in string
-        self._equation = equation
-        self._tokens = []
-
-        #convert when initialized
-        self._convertEqToTokens()
-
-    def __str__(self):
-        return self._equation
-
-    def getEquation(self):
-        return self._equation
+    def __init__(self):
+        pass
     
-    def getTokens(self):
-        #access to tokens
-        return self._tokens
-    
-    def _convertEqToTokens(self):
+    @staticmethod
+    def _convertEqToTokens(self, equation):
         #convert to list of tokens
 
         #temp token
         tempToken = None
         tempNum = ""
+        tokens = []
 
         #remove whitespace
-        eq = self._equation
+        eq = equation
         eq = eq.strip()
         eq = eq.replace(' ', '')
 
@@ -46,19 +33,21 @@ class Lexer():
                     #pass last number made
                     tempToken = self._convertNumberToken(tempNum)
                     tempNum = ""
-                    self._tokens.append(tempToken)
+                    tokens.append(tempToken)
 
                 #convert current char
                 tempToken = self._convertNonNumberToken(char)
 
                 #append to list
-                self._tokens.append(tempToken)
+                tokens.append(tempToken)
 
         if(tempNum != ""):
             #pass last number made
             tempToken = self._convertNumberToken(tempNum)
             tempNum = ""
-            self._tokens.append(tempToken)
+            tokens.append(tempToken)
+
+        return tokens
 
     def _convertNumberToken(self, str):
 
@@ -106,9 +95,6 @@ class Lexer():
             print("unknown symbol",char)
 
         return tempToken
-
-    tokens = property(getTokens)
-    equation = property(getEquation)
 
 #testing
 if __name__ == "__main__":
