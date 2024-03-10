@@ -109,7 +109,6 @@ def trapezoidalRiemann(a, b, n, func, *args):
 def simpsonsRiemann(a, b, n, func, *args):
     #S-riemann
     if(n % 2 != 0):
-        print("n is not even, defaulting to {}".format(n-1))
         n = n-1
     dx = calculateDX(a, b, n)
     riemann = 0
@@ -134,11 +133,11 @@ if __name__ == "__main__":
     #evaluate using all methods
     print("\nfunction:",func.__name__, "(x), from {} to {}".format(a, b), end="\n\n")
     
-    print("Left-Hand:   {:.4f}".format(leftHandRiemann(a, b, n, func)))
-    print("Right-Hand:  {:.4f}".format(rightHandRiemann(a, b, n, func)))
-    print("Midpoint:    {:.4f}".format(midpointRiemann(a, b, n, func)))
-    print("Trapezoidal: {:.4f}".format(trapezoidalRiemann(a, b, n, func)))
-    print("Simpsons:    {:.4f}".format(simpsonsRiemann(a, b, n, func)))
+    print("Left-Hand:   {:+.4f} {:>5}: {}".format(leftHandRiemann(a, b, n, func), 'n', n))
+    print("Right-Hand:  {:+.4f} {:>5}: {}".format(rightHandRiemann(a, b, n, func), 'n', n))
+    print("Midpoint:    {:+.4f} {:>5}: {}".format(midpointRiemann(a, b, n, func), 'n', n))
+    print("Trapezoidal: {:+.4f} {:>5}: {}".format(trapezoidalRiemann(a, b, n, func), 'n', n))
+    print("Simpsons:    {:+.4f} {:>5}: {}".format(simpsonsRiemann(a, b, n, func), 'n', n - (0 if n % 2 == 0 else 1)))
 
     dummy = input()
     
