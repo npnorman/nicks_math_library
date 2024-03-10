@@ -36,48 +36,58 @@ class Lexer():
 
         #go character by character
         for char in eq:
-            #create a variable token and append
-            if(char == 'x'):
-                #if character is an x
-                tempToken = token.Token('sym', "VAR")
+            #if number conv
 
-            elif(char == "+"):
-                #if character is +, plus
-                tempToken = token.Token('+', "PLUS")
+            #if nonnumber conv
+            tempToken = self._convertNonNumberToken(char)
 
-            elif(char == "-"):
-                #if character is -, sub
-                tempToken = token.Token('-', "SUB")
-            
-            elif(char == "*"):
-                #if character is -, sub
-                tempToken = token.Token('*', "MULT")
-            
-            elif(char == "/"):
-                #if character is -, sub
-                tempToken = token.Token('/', "DIV")
-
-            elif(char == "("):
-                #if character is -, sub
-                tempToken = token.Token('(', "LPAR")
-            
-            elif(char == ")"):
-                #if character is -, sub
-                tempToken = token.Token(')', "RPAR")
-
-            else:
-                tempToken = None
-
+            #append to list
             self._tokens.append(tempToken)
 
-        return self._tokens
+    def _convertNonNumberToken(self, char):
+        
+        tempToken = None
+        
+        #create a variable token and append
+        if(char == 'x'):
+            #if character is an x
+            tempToken = token.Token('sym', "VAR")
+
+        elif(char == "+"):
+            #if character is +, plus
+            tempToken = token.Token('+', "PLUS")
+
+        elif(char == "-"):
+            #if character is -, sub
+            tempToken = token.Token('-', "SUB")
+        
+        elif(char == "*"):
+            #if character is -, sub
+            tempToken = token.Token('*', "MULT")
+        
+        elif(char == "/"):
+            #if character is -, sub
+            tempToken = token.Token('/', "DIV")
+
+        elif(char == "("):
+            #if character is -, sub
+            tempToken = token.Token('(', "LPAR")
+        
+        elif(char == ")"):
+            #if character is -, sub
+            tempToken = token.Token(')', "RPAR")
+
+        else:
+            tempToken = None
+
+        return tempToken
 
     tokens = property(getTokens)
     equation = property(getEquation)
 
 #testing
 if __name__ == "__main__":
-    lex = Lexer("5 + 3 * x - 4 / 3 + (5 + 4 )")
+    lex = Lexer("5 + 3.5 * x - 4 / 76 + (0.2 + 4 )")
     print(lex)
     print("converting")
     
