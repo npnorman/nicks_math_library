@@ -28,6 +28,7 @@ class Lexer():
 
         #temp token
         tempToken = None
+        tempNum = ""
 
         #remove whitespace
         eq = self._equation
@@ -36,13 +37,36 @@ class Lexer():
 
         #go character by character
         for char in eq:
-            #if number conv
 
-            #if nonnumber conv
-            tempToken = self._convertNonNumberToken(char)
+            #conversion
+            if(char.isdigit() or char == "."):
+                tempNum += char
+            else:
+                if(tempNum != ""):
+                    #pass last number made
+                    tempToken = self._convertNumberToken(tempNum)
+                    tempNum = ""
+                    self._tokens.append(tempToken)
 
-            #append to list
+                #convert current char
+                tempToken = self._convertNonNumberToken(char)
+
+                #append to list
+                self._tokens.append(tempToken)
+
+        if(tempNum != ""):
+            #pass last number made
+            tempToken = self._convertNumberToken(tempNum)
+            tempNum = ""
             self._tokens.append(tempToken)
+
+    def _convertNumberToken(self, str):
+
+        tempToken = None
+        num = float(str)
+        tempToken = token.Token(num,"NUM")
+
+        return tempToken
 
     def _convertNonNumberToken(self, char):
         
@@ -87,7 +111,7 @@ class Lexer():
 
 #testing
 if __name__ == "__main__":
-    lex = Lexer("5 + 3.5 * x - 4 / 76 + (0.2 + 4 )")
+    lex = Lexer("5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8")
     print(lex)
     print("converting")
     
