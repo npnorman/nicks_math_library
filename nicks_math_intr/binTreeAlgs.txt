@@ -21,7 +21,7 @@ for each token
 def lowestOperatorOpen(node)
 	
 	if(node == null)
-		return null
+		return False, null
 	elif(node.left is null)
 		return True, node
 		#base case
@@ -29,7 +29,7 @@ def lowestOperatorOpen(node)
 		return True, node
 		#base case
 	elif(node.left is Number && node.right is Number)
-		return False
+		return False, null
 		#not lowest
 
 	#if none of these criteria are met, then one of the branches MUST be an operator

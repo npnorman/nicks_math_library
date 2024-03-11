@@ -36,8 +36,50 @@ class Node():
     right = property(getRight, setRight)
     
 class OperationTree():
-    def __init__(self, node):
-        self._root = node
+    def __init__(self):
+        self._root = None
+
+    def buildTreeFromPrefix(tokens):
+        pass
+
+    def lowestOperatorOpen(self, node):
+        
+        if(node == None):
+            return [False, None]
+            #no node exists
+        elif(node.left == None):
+            #base case
+            return [True, node]
+        elif(node.right == None):
+            #base case
+            return [True, node]
+        elif((node.left.type == "NUM" or node.left.type == "VAR") and (node.right.type == "NUM" or node.left.type == "VAR")):
+            #if both equal nums, dead end
+            return [False, None]
+        else:
+            #right or left is an operator
+            lCheck = False
+            rCheck = False
+            #check which
+            if(node.left.type != "NUM" and node.left.type != "VAR"):
+                #fo sho an operator
+                lCheck = True
+            #note: parallel ifs
+            if(node.right.type != "NUM" and node.right.type != "VAR"):
+                #fo sho an operator
+                rCheck = True
+
+            return[[lCheck, rCheck], None]
+        
+    def getRoot(self):
+        return self._root
+    
+    def setRoot(self, token):
+        if(self._root == None):
+            self._root = Node(token)
+
+    root = property(getRoot, setRoot)
+
 
     #insert new stuff
 
@@ -66,3 +108,15 @@ if __name__ == "__main__":
     print(n1.left)
     print(n1.left.left)
     print(n1.left.right)
+
+    print("\nTREE TESTING")
+    tk = [token.Token('+', "PLUS"), token.Token("sym", "VAR"),token.Token('+', "PLUS")]
+    opTr = OperationTree()
+    opTr.root = tk[0]
+    opTr.root.left = tk[1]
+    opTr.root.right = tk[2]
+
+    print(f"Root: {opTr.root}\n")
+    result = opTr.lowestOperatorOpen(opTr.root)
+    print("LowOpenOper:",result[0],":", result[1])
+    
