@@ -118,32 +118,25 @@ class Parser():
         return output
 
     @staticmethod
-    def tokensToBinTree(tokens):
+    def tokensToBinTree(eqn):
 
         #binTree to store everything
+        
+        #convert tokens to prefix to make it easier
+        tokens = lexer.Lexer().eqToTokens(eqn)
+        postTokens = Parser._infixToPostfix(tokens)
+        preTokens = Parser._postfixToPrefix(postTokens)
 
-        return "tree"
+        return preTokens
 
 if __name__ == "__main__":
 
     #set up equation
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    tokens = lexer.Lexer().eqToTokens(lex)
-    print(lex)
-    for tok in tokens:
-        print(f"[{tok}]", end=", ")
-    print("\n")
-    tokens2 = Parser()._infixToPostfix(tokens)
-    for tok in tokens2:
-        print(f"[{tok}]", end=", ")
-    print("\n")
-
-    tokens3 = Parser()._postfixToPrefix(tokens2)
-    for tok in tokens3:
-        print(f"[{tok}]", end=", ")
-    print("\n")
 
     #put into parser
-    tree = Parser().tokensToBinTree(tokens)
+    tree = Parser().tokensToBinTree(lex)
     #print tree
-    print(tree)
+    for tok in tree:
+        print(f"[{tok}]", end=", ")
+    print("\n")
