@@ -1,0 +1,47 @@
+#long algorithm
+
+ln = lowest operator open()
+for each token
+	
+	if no nodes
+		node = root
+
+	else
+	  def recurse(ln)
+			check(ln.left)
+				ln.left = token
+				if token is operator, set ln = ln.left
+			else check(ln.right)
+				ln.right = token
+				if token is operator, set ln = ln.right
+			else
+				ln = lowest operator open()
+				recurse(ln)
+
+def lowestOperatorOpen(node)
+	
+	if(node == null)
+		return null
+	elif(node.left is null)
+		return True, node
+		#base case
+	elif(node.right is null)
+		return True, node
+		#base case
+	elif(node.left is Number && node.right is Number)
+		return False
+		#not lowest
+
+	#if none of these criteria are met, then one of the branches MUST be an operator
+	lCheck, rCheck = False	
+
+	if(node.left is Operator)
+		lCheck = lOO(node.left)
+
+	if(node.right is Operator)
+		rCheck = lOO(node.right)
+
+	if (lCheck and rCheck is false)
+		#I am closed, return false
+	else (lCheck or rCheck is true)
+		return true, node of (l/r)check
