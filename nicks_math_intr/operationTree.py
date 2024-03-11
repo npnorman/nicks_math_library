@@ -44,7 +44,8 @@ class OperationTree():
         pass
 
     def lowestOperatorOpen(self, node):
-        
+        print(f"entered with node: [{node}]")
+
         if(node == None):
             return [False, None]
             #no node exists
@@ -64,11 +65,11 @@ class OperationTree():
             #check which
             if(node.left.token.type != "NUM" and node.left.token.type != "VAR"):
                 #fo sho an operator
-                lCheck = [True, node.left]
+                lCheck = self.lowestOperatorOpen(node.left)
             #note: parallel ifs
             if(node.right.token.type != "NUM" and node.right.token.type != "VAR"):
                 #fo sho an operator
-                rCheck = [True, node.right]
+                rCheck = self.lowestOperatorOpen(node.right)
 
             if(lCheck[0] == False and rCheck[0] == False):
                 print("this wasnt supposed to happen")
@@ -119,7 +120,7 @@ if __name__ == "__main__":
     print(n1.left.right)
 
     print("\nTREE TESTING")
-    tk = [token.Token('+', "PLUS"), token.Token("+", "PLUS"),token.Token(7, "NUM")]
+    tk = [token.Token('+', "PLUS"), token.Token("-", "SUB"),token.Token(7, "NUM")]
     opTr = OperationTree()
     opTr.root = tk[0]
     opTr.root.left = tk[1]
