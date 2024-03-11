@@ -72,7 +72,7 @@ class OperationTree():
                 rCheck = self.lowestOperatorOpen(node.right)
 
             if(lCheck[0] == False and rCheck[0] == False):
-                print("this wasnt supposed to happen")
+                #I am an operator but im full
                 return [False, None]
             elif(lCheck[0] == True):
                 #moving node from lCheck up
@@ -120,13 +120,17 @@ if __name__ == "__main__":
     print(n1.left.right)
 
     print("\nTREE TESTING")
-    tk = [token.Token('+', "PLUS"), token.Token("-", "SUB"),token.Token(7, "NUM")]
+    tk = [token.Token('+', "PLUS"), token.Token("-", "SUB"),token.Token(7, "NUM"), token.Token('/', "DIV"), token.Token('*2', "MULT"), token.Token(5.0, "NUM"), token.Token(3.0, "NUM")]
     opTr = OperationTree()
     opTr.root = tk[0]
     opTr.root.left = tk[1]
     opTr.root.right = tk[2]
+    opTr.root.left.left = tk[3]
+    opTr.root.left.right = tk[4]
+    opTr.root.left.left.left = tk[5]
+    opTr.root.left.left.right = tk[6]
 
     print(f"Root: {opTr.root}\n")
     result = opTr.lowestOperatorOpen(opTr.root)
-    print("LowOpenOper:",result[0],":", result[1])
+    print(f"LowOpenOper: {result[0]} : [{result[1]}]")
     
