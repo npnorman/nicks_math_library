@@ -39,6 +39,8 @@ class OperationTree():
     def __init__(self, node):
         self._root = node
 
+    #insert new stuff
+
 if __name__ == "__main__":
     print("testing")
     node = Node(token.Token('+', "PLUS"))
