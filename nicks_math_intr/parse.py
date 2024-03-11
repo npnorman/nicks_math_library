@@ -10,8 +10,29 @@ class Parser():
         pass
 
     @staticmethod
-    def _postfixToPrefix(tokes):
-        pass
+    def _postfixToPrefix(tokens):
+        #from geeks4geeks
+
+        stack = []
+
+        #for all tokens in tokens
+        for tok in tokens:
+            #if token is operand put on stack
+            if(tok.type == "NUM" or tok.type == "VAR"):
+                stack.append([tok])
+            else:
+                #if symbol is operator, pop two operands from stack
+                op1 = stack.pop()
+                op2 = stack.pop()
+
+                #combine two lists
+                tempExpr = [tok] + op2 + op1
+                
+                #should look like this: operator, operand2, operand1
+                #push these to stack
+                stack.append(tempExpr)
+        
+        return stack[0]
 
     @staticmethod
     def _infixToPostfix(tokens):
@@ -106,7 +127,7 @@ class Parser():
 if __name__ == "__main__":
 
     #set up equation
-    lex = "3 + 5.7"
+    lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
     tokens = lexer.Lexer().eqToTokens(lex)
     print(lex)
     for tok in tokens:
@@ -114,6 +135,11 @@ if __name__ == "__main__":
     print("\n")
     tokens2 = Parser()._infixToPostfix(tokens)
     for tok in tokens2:
+        print(f"[{tok}]", end=", ")
+    print("\n")
+
+    tokens3 = Parser()._postfixToPrefix(tokens2)
+    for tok in tokens3:
         print(f"[{tok}]", end=", ")
     print("\n")
 
