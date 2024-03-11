@@ -11,6 +11,9 @@ class Parser():
 
     @staticmethod
     def tokensToBinTree(tokens):
+
+        #binTree to store everything
+
         return "tree"
 
 if __name__ == "__main__":
