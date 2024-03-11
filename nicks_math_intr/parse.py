@@ -128,6 +128,17 @@ class Parser():
         preTokens = Parser._postfixToPrefix(postTokens)
 
         return preTokens
+    
+    @staticmethod
+    def isNumOrVar(token):
+        if(token.type == "NUM"):
+            return True
+        elif(token.type == "VAR"):
+            return True
+        else:
+            #not a number or var
+            return False
+
 
 if __name__ == "__main__":
 

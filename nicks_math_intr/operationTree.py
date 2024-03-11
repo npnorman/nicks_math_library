@@ -3,6 +3,7 @@
 #March 2024
 
 import token
+import parse
 
 class Node():
     def __init__(self, token):
@@ -25,11 +26,11 @@ class Node():
     def getRight(self):
         return self._right
     
-    def setLeft(self, node):
-        self._left = node
+    def setLeft(self, token):
+        self._left = Node(token)
 
-    def setRight(self, node):
-        self._right = node
+    def setRight(self, token):
+        self._right = Node(token)
 
     token = property(getToken, setToken)
     left = property(getLeft, setLeft)
@@ -53,23 +54,31 @@ class OperationTree():
         elif(node.right == None):
             #base case
             return [True, node]
-        elif((node.left.type == "NUM" or node.left.type == "VAR") and (node.right.type == "NUM" or node.left.type == "VAR")):
+        elif(parse.Parser().isNumOrVar(node.left.token) and parse.Parser().isNumOrVar(node.right.token)):
             #if both equal nums, dead end
             return [False, None]
         else:
             #right or left is an operator
-            lCheck = False
-            rCheck = False
+            lCheck = [False, None]
+            rCheck = [False, None]
             #check which
-            if(node.left.type != "NUM" and node.left.type != "VAR"):
+            if(node.left.token.type != "NUM" and node.left.token.type != "VAR"):
                 #fo sho an operator
-                lCheck = True
+                lCheck = [True, node.left]
             #note: parallel ifs
-            if(node.right.type != "NUM" and node.right.type != "VAR"):
+            if(node.right.token.type != "NUM" and node.right.token.type != "VAR"):
                 #fo sho an operator
-                rCheck = True
+                rCheck = [True, node.right]
 
-            return[[lCheck, rCheck], None]
+            if(lCheck[0] == False and rCheck[0] == False):
+                print("this wasnt supposed to happen")
+                return [False, None]
+            elif(lCheck[0] == True):
+                #moving node from lCheck up
+                return [True, lCheck[1]]
+            elif(rCheck[0] == True):
+                #moving node from rCheck up
+                return [True, rCheck[1]]
         
     def getRoot(self):
         return self._root
@@ -110,7 +119,7 @@ if __name__ == "__main__":
     print(n1.left.right)
 
     print("\nTREE TESTING")
-    tk = [token.Token('+', "PLUS"), token.Token("sym", "VAR"),token.Token('+', "PLUS")]
+    tk = [token.Token('+', "PLUS"), token.Token("+", "PLUS"),token.Token(7, "NUM")]
     opTr = OperationTree()
     opTr.root = tk[0]
     opTr.root.left = tk[1]
