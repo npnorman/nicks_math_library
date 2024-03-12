@@ -6,11 +6,14 @@
 #input << tree, some x to replace sym
 #output >> number (float)
 
-import token
-import lexer
+import os
+import sys
 import parse
 import operationTree
-import nicks_handy_funcs as nhf
+
+#get nicks handy functions
+p_d = os.path.abspath('..')
+sys.path.append(p_d)
 
 def evaluateOpTree(node:operationTree.node):
     
