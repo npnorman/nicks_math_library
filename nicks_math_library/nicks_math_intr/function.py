@@ -49,4 +49,26 @@ class N_function():
 if __name__ == "__main__":
     
     #get input of equation
-    pass
+    print("Welcome to Nick's Math Library")
+    print("Current Operators accepted are [+, -, *, /]")
+    print("To use a variable, please type 'x'")
+    print("f(x) = ", end="")
+
+    equation = input()
+    f = N_function(equation)
+
+    keepGoing = True
+    while(keepGoing):
+        #ask for x
+        print("x = ", end="")
+        x = input()
+        x = float(x)
+
+        #print equation and x
+        print(f.equation)
+        print(f"f({x}) = {f(x)}")
+
+        #ask to exit
+        exitCheck = input("to exit enter exit()\n")
+        if (exitCheck == "exit()"):
+            keepGoing = False
