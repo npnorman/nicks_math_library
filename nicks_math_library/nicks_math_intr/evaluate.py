@@ -8,7 +8,7 @@
 
 import os
 import sys
-from parse import Parser as prs
+import parse
 import operationTree
 import math
 
@@ -35,7 +35,7 @@ def evaluateOpTree(node:operationTree.Node, x:float):
         #variable (assume for now only one variable)
         return x
 
-    elif(prs().isOperator(node.token)):
+    elif(parse.isOperator(node.token)):
         #if operator
         #figure out which
         #use nicks handy functions
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     lex = "3*x+1"
 
     #put into parser
-    tree = prs().tokensToBinTree(lex)
+    tree = parse.tokensToBinTree(lex)
     print(lex)
     #evaluate tree
     for x in range(-2, 2+1):

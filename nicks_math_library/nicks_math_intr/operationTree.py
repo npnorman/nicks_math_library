@@ -50,7 +50,7 @@ class OperationTree():
         if(node.left == None):
             #base case
             return [True, node]
-        elif(parse.Parser().isOperator(node.left.token)):
+        elif(parse.isOperator(node.left.token)):
             #go deeper
             res = None
             res = self.lowestOperatorOpen(node.left)
@@ -61,7 +61,7 @@ class OperationTree():
         if(node.right == None):
             #base case
             return [True, node]
-        elif(parse.Parser().isOperator(node.right.token)):
+        elif(parse.isOperator(node.right.token)):
             #go deeper
             res = None
             res = self.lowestOperatorOpen(node.right)
@@ -70,7 +70,7 @@ class OperationTree():
                 return res
             #else check dead end
 
-        if(parse.Parser().isNumOrVar(node.left.token) and parse.Parser().isNumOrVar(node.right.token)):
+        if(parse.isNumOrVar(node.left.token) and parse.isNumOrVar(node.right.token)):
             #dead end
             return [False, None]
         
@@ -170,9 +170,9 @@ if __name__ == "__main__":
 
     print("\n\n")
     eqn = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    tokens = lexer.Lexer().eqToTokens(eqn)
-    postTokens = parse.Parser()._infixToPostfix(tokens)
-    preTokens = parse.Parser()._postfixToPrefix(postTokens)
+    tokens = lexer.eqToTokens(eqn)
+    postTokens = parse._infixToPostfix(tokens)
+    preTokens = parse._postfixToPrefix(postTokens)
     tr = OperationTree()
     tr.buildTreeFromPrefix(preTokens)
 
