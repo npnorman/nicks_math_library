@@ -20,6 +20,14 @@ def evaluateOpTree(node:operationTree.node):
     if(parse.Parser().isOperator(node.token)):
         #figure out which
         #use nicks handy functions
-        dict = {}
+        dict = {
+            "PLUS": nhf.plus,
+            "SUB": nhf.minus,
+            "MULT": nhf.mult,
+            "DIV": nhf.div,
+            "POW": nhf.pow
+            }
+        
+        func = dict.get(node.token.type)
     
     return 0
