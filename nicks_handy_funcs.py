@@ -46,6 +46,28 @@ def ln(x):
     #y=ln(x)
     return math.log(x)
 
+#basic functions +, -, *, /, ^
+
+def plus(x,y):
+    #x+y
+    return x+y
+
+def minus(x,y):
+    #x-y
+    return x-y
+
+def mult(x,y):
+    #x*y
+    return x*y
+
+def div(x,y):
+    #x/y
+    return x/y
+
+def pow(x,y):
+    #x^y
+    return x**y
+
 #if used as main
 if __name__ == "__main__":
     #test of functions

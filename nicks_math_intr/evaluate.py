@@ -10,6 +10,7 @@ import token
 import lexer
 import parse
 import operationTree
+import nicks_handy_funcs as nhf
 
 def evaluateOpTree(node:operationTree.node):
     
