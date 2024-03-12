@@ -4,19 +4,23 @@ ln = lowest operator open()
 for each token
 	
 	if no nodes
-		node = root
+		root = token
 
 	else
-	  def recurse(ln)
-			check(ln.left)
-				ln.left = token
-				if token is operator, set ln = ln.left
-			else check(ln.right)
-				ln.right = token
-				if token is operator, set ln = ln.right
-			else
-				ln = lowest operator open()
-				recurse(ln)
+		setNodeChild(ln)
+
+
+
+def setNodeChild(ln)
+	if check(ln.left)
+		ln.left = token
+		if token is operator, set ln = ln.left
+	else check(ln.right)
+		ln.right = token
+		if token is operator, set ln = ln.right
+	else
+		ln = lowest operator open()
+		setNodeChild(ln)
 
 def lowestOperatorOpen(node)
 	

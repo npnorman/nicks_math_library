@@ -3,6 +3,7 @@
 #March 2024
 
 import token
+import lexer
 import parse
 
 class Node():
@@ -12,7 +13,7 @@ class Node():
         self._right = None
     
     def __str__(self):
-        return (self.token.__str__())
+        return f"[{self.token.__str__()}]: NODE"
     
     def getToken(self):
         return self._token
@@ -40,11 +41,8 @@ class OperationTree():
     def __init__(self):
         self._root = None
 
-    def buildTreeFromPrefix(tokens):
-        pass
-
     def lowestOperatorOpen(self, node):
-        print(f"entered with node: [{node}]")
+        #print(f"entered with node: [{node}]")
 
         if(node == None):
             return [False, None]
@@ -87,6 +85,45 @@ class OperationTree():
     def setRoot(self, token):
         if(self._root == None):
             self._root = Node(token)
+
+    def setNodeBranch(self, ln, tok):
+        if (ln.left == None):
+            #if open set left
+            ln.left = tok
+        elif (ln.right == None):
+            #if open set right
+            ln.right = tok
+        else:
+            #filled up/dead end
+            print(f"dead end with : {tok}")
+            #self.setNodeBranch(ln, tok)
+
+    def buildTreeFromPrefix(self, tokens):
+        
+        ln = None
+        
+        #for every token
+        for tok in tokens:
+            if (self._root == None):
+                #no nodes yet
+                self.root = tok
+                lowestNode = self.lowestOperatorOpen(self.root)
+                ln = lowestNode[1]
+            else:
+                #find node to set
+                lowestNode = self.lowestOperatorOpen(self.root)
+                ln = lowestNode[1]
+                print(ln, tok)
+                self.setNodeBranch(ln, tok)
+
+    def printTree(self, node, level=0, prefix='Root: '):
+        #prints tree
+        if node is not None:
+            print(' ' * (level * 4) + prefix + str(node.token.value))
+            if node.left is not None or node.right is not None:
+                self.printTree(node.left, level + 1, 'L-- ')
+                self.printTree(node.right, level + 1, 'R-- ')
+
 
     root = property(getRoot, setRoot)
 
@@ -133,4 +170,14 @@ if __name__ == "__main__":
     print(f"Root: {opTr.root}\n")
     result = opTr.lowestOperatorOpen(opTr.root)
     print(f"LowOpenOper: {result[0]} : [{result[1]}]")
-    
+
+    print("\n\n")
+    eqn = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
+    eqn = "5 + 3.5 * x - 4"
+    tokens = lexer.Lexer().eqToTokens(eqn)
+    postTokens = parse.Parser()._infixToPostfix(tokens)
+    preTokens = parse.Parser()._postfixToPrefix(postTokens)
+    tr = OperationTree()
+    tr.buildTreeFromPrefix(preTokens)
+
+    tr.printTree(tr.root)
