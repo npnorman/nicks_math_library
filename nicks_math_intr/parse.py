@@ -104,7 +104,7 @@ class Parser():
         #check for operator in while loop
 
         #precedence
-        precedence = {"PLUS": 2, "SUB": 2, "MULT": 3, "DIV": 3, "EXP": 4}
+        precedence = {"PLUS": 2, "SUB": 2, "MULT": 3, "DIV": 3, "POW": 4}
         
         output = False
         #if operator stack is not empty
@@ -138,6 +138,20 @@ class Parser():
         else:
             #not a number or var
             return False
+        
+    @staticmethod
+    def isOperator(token):
+        res = False
+        operators = {"PLUS": 2, "SUB": 2, "MULT": 3, "DIV": 3, "POW": 4}
+        
+        if(operators.get(token.type) == None):
+            #not an operator
+            res = False
+        else:
+            #is an operator
+            res = True
+
+        return res
 
 
 if __name__ == "__main__":
@@ -150,4 +164,5 @@ if __name__ == "__main__":
     #print tree
     for tok in tree:
         print(f"[{tok}]", end=", ")
+        print(Parser().isOperator(tok))
     print("\n")

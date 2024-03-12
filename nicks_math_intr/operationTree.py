@@ -47,12 +47,23 @@ class OperationTree():
         if(node == None):
             return [False, None]
             #no node exists
-        elif(node.left == None):
+        
+        if(node.left == None):
             #base case
             return [True, node]
-        elif(node.right == None):
+        elif(parse.Parser().isOperator(node.left.token)):
+            #go deeper
+            res = self.lowestOperatorOpen(node.left)
+            if (res[0] == True):
+                return res
+            #else check right subtree
+
+        if(node.right == None):
             #base case
             return [True, node]
+        elif(parse.Parser().isOperator(node.right.token))
+        
+
         elif(parse.Parser().isNumOrVar(node.left.token) and parse.Parser().isNumOrVar(node.right.token)):
             #if both equal nums, dead end
             return [False, None]
