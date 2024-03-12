@@ -45,3 +45,7 @@ PAR | Start or End  parenthesis | (5)
 * Goal: evaluate a binary token tree
 * input: binary token tree
 * output: correct answer as float
+
+### Formula
+
+This is a wrapper for everything made so far. You will input an equation, it will turn it into an operation tree, then you can use the formula(x) to evaluate it. (Calls eval() func)
