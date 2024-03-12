@@ -61,34 +61,16 @@ class OperationTree():
         if(node.right == None):
             #base case
             return [True, node]
-        elif(parse.Parser().isOperator(node.right.token))
+        elif(parse.Parser().isOperator(node.right.token)):
+            #go deeper
+            res = self.lowestOperatorOpen(node.right)
+            if (res[0] == True):
+                return res
+            #else check dead end
         
-
-        elif(parse.Parser().isNumOrVar(node.left.token) and parse.Parser().isNumOrVar(node.right.token)):
-            #if both equal nums, dead end
+        if(parse.Parser().isNumOrVar(node.left.token) and parse.Parser().isNumOrVar(node.right.token)):
+            #dead end
             return [False, None]
-        else:
-            #right or left is an operator
-            lCheck = [False, None]
-            rCheck = [False, None]
-            #check which
-            if(node.left.token.type != "NUM" and node.left.token.type != "VAR"):
-                #fo sho an operator
-                lCheck = self.lowestOperatorOpen(node.left)
-            #note: parallel ifs
-            if(node.right.token.type != "NUM" and node.right.token.type != "VAR"):
-                #fo sho an operator
-                rCheck = self.lowestOperatorOpen(node.right)
-
-            if(lCheck[0] == False and rCheck[0] == False):
-                #I am an operator but im full
-                return [False, None]
-            elif(lCheck[0] == True):
-                #moving node from lCheck up
-                return [True, lCheck[1]]
-            elif(rCheck[0] == True):
-                #moving node from rCheck up
-                return [True, rCheck[1]]
         
     def getRoot(self):
         return self._root
