@@ -12,10 +12,12 @@ import parse
 import operationTree
 
 #get nicks handy functions
-p_d = os.path.abspath('..')
+p_d = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(p_d)
 
-def evaluateOpTree(node:operationTree.node):
+import nicks_handy_funcs as nhf
+
+def evaluateOpTree(node:operationTree.Node):
     
     #start at root
     #figure out what kind of node this is
