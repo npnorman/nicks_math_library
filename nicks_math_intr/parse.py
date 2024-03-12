@@ -39,8 +39,7 @@ class Parser():
         #use shunting yard algorithm  **p.s. thanks edwin
         #pulled from wikipedia
         #tokens are of type Token()
-
-        print("changing order")
+        
         #output & stack
         output = []
         operatorStack = []

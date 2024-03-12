@@ -42,7 +42,6 @@ class OperationTree():
         self._root = None
 
     def lowestOperatorOpen(self, node):
-        #print(f"entered with node: [{node}]")
 
         if(node == None):
             return [False, None]
@@ -53,6 +52,7 @@ class OperationTree():
             return [True, node]
         elif(parse.Parser().isOperator(node.left.token)):
             #go deeper
+            res = None
             res = self.lowestOperatorOpen(node.left)
             if (res[0] == True):
                 return res
@@ -63,14 +63,19 @@ class OperationTree():
             return [True, node]
         elif(parse.Parser().isOperator(node.right.token)):
             #go deeper
+            res = None
             res = self.lowestOperatorOpen(node.right)
+
             if (res[0] == True):
                 return res
             #else check dead end
-        
+
         if(parse.Parser().isNumOrVar(node.left.token) and parse.Parser().isNumOrVar(node.right.token)):
             #dead end
             return [False, None]
+        
+        #did not find an open operator // dead subtree
+        return [False, None]
         
     def getRoot(self):
         return self._root
@@ -106,7 +111,6 @@ class OperationTree():
                 #find node to set
                 lowestNode = self.lowestOperatorOpen(self.root)
                 ln = lowestNode[1]
-                print(ln, tok)
                 self.setNodeBranch(ln, tok)
 
     def printTree(self, node, level=0, prefix='Root: '):
@@ -166,11 +170,11 @@ if __name__ == "__main__":
 
     print("\n\n")
     eqn = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    eqn = "5 + 3.5 * x - 4"
     tokens = lexer.Lexer().eqToTokens(eqn)
     postTokens = parse.Parser()._infixToPostfix(tokens)
     preTokens = parse.Parser()._postfixToPrefix(postTokens)
     tr = OperationTree()
     tr.buildTreeFromPrefix(preTokens)
 
+    print(f"input equation: {eqn}")
     tr.printTree(tr.root)
