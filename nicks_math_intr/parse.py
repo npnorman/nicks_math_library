@@ -4,6 +4,7 @@
 
 import token
 import lexer
+import operationTree
 
 class Parser():
     def __init__(self):
@@ -125,8 +126,13 @@ class Parser():
         tokens = lexer.Lexer().eqToTokens(eqn)
         postTokens = Parser._infixToPostfix(tokens)
         preTokens = Parser._postfixToPrefix(postTokens)
+        #create the tree
+        tr = operationTree.OperationTree()
+        tr.buildTreeFromPrefix(preTokens)
 
-        return preTokens
+        #implement eqn store in tree
+
+        return tr
     
     @staticmethod
     def isNumOrVar(token):
@@ -161,7 +167,4 @@ if __name__ == "__main__":
     #put into parser
     tree = Parser().tokensToBinTree(lex)
     #print tree
-    for tok in tree:
-        print(f"[{tok}]", end=", ")
-        print(Parser().isOperator(tok))
-    print("\n")
+    tree.printTree(tree.root)
