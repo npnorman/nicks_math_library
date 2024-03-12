@@ -19,6 +19,10 @@ import nicks_handy_funcs as nhf
 
 def evaluateOpTree(node:operationTree.Node):
     
+    #store L / R numbers
+    Num1 = None
+    Num2 = None
+
     #start at root
     #figure out what kind of node this is
     #if operator
@@ -35,4 +39,12 @@ def evaluateOpTree(node:operationTree.Node):
         
         func = dict.get(node.token.type)
     
-    return 0
+
+    #return Num1 func Num2
+    res = func(Num1, Num2)
+
+    return res
+
+if __name__ == "__main__":
+    #test
+    pass
