@@ -26,26 +26,27 @@ def lowestOperatorOpen(node)
 	
 	if(node == null)
 		return False, null
-	elif(node.left is null)
+
+	if(node.left is null)
 		return True, node
 		#base case
-	elif(node.right is null)
+	elif(node.left is opr)
+		#go deeper
+		res = lOO(node.left)
+		if res[0] = True
+			return res
+
+
+	if(node.right is null)
 		return True, node
 		#base case
-	elif(node.left is Number && node.right is Number)
+	elif(node.right is opr)
+		#go deeper
+		res = lOO(node.right)
+		if res[0] = True
+			return res
+
+	if(node.left is Number && node.right is Number)
 		return False, null
 		#not lowest
-
-	#if none of these criteria are met, then one of the branches MUST be an operator
-	lCheck, rCheck = False	
-
-	if(node.left is Operator)
-		lCheck = lOO(node.left)
-
-	if(node.right is Operator)
-		rCheck = lOO(node.right)
-
-	if (lCheck and rCheck is false)
-		#I am closed, return false
-	else (lCheck or rCheck is true)
-		return true, node of (l/r)check
+	
