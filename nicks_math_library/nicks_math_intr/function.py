@@ -80,6 +80,6 @@ if __name__ == "__main__":
         print(f"f({x}) = {f(x)}")
 
         #ask to exit
-        exitCheck = input("to exit enter exit()\n")
-        if (exitCheck == "exit()"):
+        exitCheck = input("\ne() to exit\n")
+        if (exitCheck == "e()"):
             keepGoing = False

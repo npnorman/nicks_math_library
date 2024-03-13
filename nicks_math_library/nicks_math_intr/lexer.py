@@ -16,6 +16,9 @@ def eqToTokens(equation):
     tempNum = ""
     tokens = []
 
+    #store lecation of char
+    charIndex = 0
+
     #remove whitespace
     eq = equation
     eq = eq.strip()
@@ -25,10 +28,11 @@ def eqToTokens(equation):
     for char in eq:
 
         #conversion
-        if(char.isdigit() or char == "."):
+        if(_isNumber(char) or _isNegative(char, eq, charIndex)):
             tempNum += char
         else:
             if(tempNum != ""):
+                #if tempNum is made of numbers
                 #pass last number made
                 tempToken = _convertNumberToken(tempNum)
                 tempNum = ""
@@ -39,6 +43,8 @@ def eqToTokens(equation):
 
             #append to list
             tokens.append(tempToken)
+
+        charIndex += 1
 
     if(tempNum != ""):
         #pass last number made
@@ -52,6 +58,26 @@ def eqToTokens(equation):
     else:
         return None
     
+
+def _isNumber(char):
+    if(char.isdigit() or char == "."):
+        return True
+
+def _isNegative(char, eqn, i):
+    #three cases
+    if (char == "-"):
+        # -
+        if (i == 0):
+            #first sign
+            return True
+        #+-
+        elif (_isOperator(eqn[i-1])):
+            return True
+        #(-
+        elif (eqn[i-1] == "("):
+            return True
+
+    return False
 
 def _convertNumberToken(str):
 
@@ -165,13 +191,20 @@ def _validateTokens(tokens):
     
     return True
 
+def _isOperator(char):
+    operators = ['+','-','*','/','^']
+    if (char in operators):
+        return True
+    
+    return False
+
 #testing
 if __name__ == "__main__":
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+3"
+    lex = "5-(-3)"
 
     print(lex)
     tokens = eqToTokens(lex)
