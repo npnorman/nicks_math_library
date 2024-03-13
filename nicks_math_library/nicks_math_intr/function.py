@@ -52,7 +52,7 @@ class N_function():
 
 if __name__ == "__main__":
     
-    """
+
     #get input of equation
     print("Welcome to Nick's Math Library")
     print("Current Operators accepted are [+, -, *, /]")
@@ -67,7 +67,13 @@ if __name__ == "__main__":
         #ask for x
         print("x = ", end="")
         x = input()
-        x = float(x)
+        
+        try:
+            x = float(x)
+        except:
+            print("x not valid, defaulting to 1")
+            x = 1
+
 
         #print equation and x
         print(f.equation)
@@ -77,13 +83,3 @@ if __name__ == "__main__":
         exitCheck = input("to exit enter exit()\n")
         if (exitCheck == "exit()"):
             keepGoing = False
-    """
-
-    equation = "5+5"
-    f = N_function(equation)
-
-    print(f.evaluate(1))
-
-
-#while taking in func
-    #if returns error, try again
