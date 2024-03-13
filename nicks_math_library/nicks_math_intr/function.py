@@ -79,7 +79,7 @@ if __name__ == "__main__":
             keepGoing = False
     """
 
-    equation = "5+"
+    equation = "5(3)"
     f = N_function(equation)
 
     print(f.evaluate(1))
