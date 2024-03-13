@@ -37,6 +37,7 @@ def eqToTokens(equation):
                 tempToken = _convertNumberToken(tempNum)
                 tempNum = ""
                 tokens.append(tempToken)
+            #else if tempStr in not empty
 
             #convert current char
             tempToken = _convertNonNumberToken(char)
@@ -66,16 +67,23 @@ def _isNumber(char):
 def _isNegative(char, eqn, i):
     #three cases
     if (char == "-"):
-        # -
-        if (i == 0):
-            #first sign
-            return True
-        #+-
-        elif (_isOperator(eqn[i-1])):
-            return True
-        #(-
-        elif (eqn[i-1] == "("):
-            return True
+        if(i != len(eqn)):
+            #not last one
+
+            if(_isNumber(eqn[i+1])):
+                #right of negative is number
+                # -
+                if (i == 0):
+                    #first sign
+                    return True
+                #+-
+                elif (_isOperator(eqn[i-1])):
+                    return True
+                #(-
+                elif (eqn[i-1] == "("):
+                    return True
+            elif(eqn[i+1] == "x"):
+                print("found x")
 
     return False
 
@@ -204,7 +212,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5-(-3)"
+    lex = "5-(-x)"
 
     print(lex)
     tokens = eqToTokens(lex)
