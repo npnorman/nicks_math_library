@@ -19,6 +19,12 @@ def _postfixToPrefix(tokens):
         #if token is operand put on stack
         if(tok.type == "NUM" or tok.type == "VAR"):
             stack.append([tok])
+        elif(tok.type == "FUNC"):
+            #type is function
+            op1 = stack.pop()
+            #pop 1 operator and combine
+            tempExpr = [tok] + op1
+            stack.append(tempExpr)
         else:
             #if symbol is operator, pop two operands from stack
             op1 = stack.pop()
@@ -52,9 +58,9 @@ def _infixToPostfix(tokens):
             output.append(tok)
 
         elif(tok.type == "FUNC"):
-            #if it is a function (NOT IMPLEMENTED)
+            #if it is a function
             #push to operator stack
-            pass
+            operatorStack.append(tok)
 
         elif (tok.type == "LPAR"):
             #left parenthesis
@@ -103,7 +109,7 @@ def _operatorCheck(operatorStack, tok):
     #check for operator in while loop
 
     #precedence
-    precedence = {"PLUS": 2, "SUB": 2, "MULT": 3, "DIV": 3, "POW": 4}
+    precedence = {"PLUS": 2, "SUB": 2, "MULT": 3, "DIV": 3, "POW": 4, "FUNC": 5}
     
     output = False
     #if operator stack is not empty
@@ -166,9 +172,21 @@ if __name__ == "__main__":
 
     #set up equation
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    lex = "5+(3)"
+    lex = "5+sin(3)"
 
     #put into parser
-    tree = tokensToBinTree(lex)
+    #tree = tokensToBinTree(lex)
     #print tree
-    tree.printTree(tree.root)
+    #tree.printTree(tree.root)
+
+    tokens = lexer.eqToTokens(lex)
+    for t in tokens:
+        print(f"infix: {t}")
+    postTokens = _infixToPostfix(tokens)
+    print("")
+    for t in postTokens:
+        print(f"postfix: {t}")
+    preTokens = _postfixToPrefix(postTokens)
+    print("")
+    for t in preTokens:
+        print(f"prefix: {t}")
