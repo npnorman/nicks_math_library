@@ -44,38 +44,38 @@ class OperationTree():
     def lowestOperatorOpen(self, node):
 
         if(node == None):
-            return [False, None]
+            return None
             #no node exists
         
         if(node.left == None):
             #base case
-            return [True, node]
+            return node
         elif(parse.isOperator(node.left.token)):
             #go deeper
             res = None
             res = self.lowestOperatorOpen(node.left)
-            if (res[0] == True):
+            if (res != None):
                 return res
             #else check right subtree
 
         if(node.right == None):
             #base case
-            return [True, node]
+            return node
         elif(parse.isOperator(node.right.token)):
             #go deeper
             res = None
             res = self.lowestOperatorOpen(node.right)
 
-            if (res[0] == True):
+            if (res != None):
                 return res
             #else check dead end
 
         if(parse.isNumOrVar(node.left.token) and parse.isNumOrVar(node.right.token)):
             #dead end
-            return [False, None]
+            return None
         
         #did not find an open operator // dead subtree
-        return [False, None]
+        return None
         
     def getRoot(self):
         return self._root
@@ -105,12 +105,10 @@ class OperationTree():
             if (self._root == None):
                 #no nodes yet
                 self.root = tok
-                lowestNode = self.lowestOperatorOpen(self.root)
-                ln = lowestNode[1]
+                ln = self.lowestOperatorOpen(self.root)
             else:
                 #find node to set
-                lowestNode = self.lowestOperatorOpen(self.root)
-                ln = lowestNode[1]
+                ln = self.lowestOperatorOpen(self.root)
                 self.setNodeBranch(ln, tok)
 
     def printTree(self, node, level=0, prefix='Root: '):
@@ -164,12 +162,8 @@ if __name__ == "__main__":
     opTr.root.left.left.left = tk[5]
     opTr.root.left.left.right = tk[6]
 
-    print(f"Root: {opTr.root}\n")
-    result = opTr.lowestOperatorOpen(opTr.root)
-    print(f"LowOpenOper: {result[0]} : [{result[1]}]")
-
     print("\n\n")
-    eqn = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
+    eqn = "5 + 3.5 * x - e / pi"
     tokens = lexer.eqToTokens(eqn)
     postTokens = parse._infixToPostfix(tokens)
     preTokens = parse._postfixToPrefix(postTokens)
