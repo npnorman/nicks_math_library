@@ -122,13 +122,21 @@ def _convertSymbolToken(str):
     #match to dictionary
     knownSymbols = {
         "e": math.e,
-        "pi": math.pi
+        "pi": math.pi,
+    }
+
+    knownFuncs = {
+        "sin": math.sin
     }
 
     if(knownSymbols.get(str) != None):
         #symbol exists in the dictionary
         return token.Token(knownSymbols.get(str), "NUM")
+    elif(knownFuncs.get(str) != None):
+        #if exists in the dictionary return the token
+        return token.Token(knownFuncs.get(str), "FUNC")
 
+    print(f"unknown symbol {str}")
     return None
 
 def _convertOperatorToken(char):
@@ -189,12 +197,13 @@ def _validateTokens(tokens):
                 return False
 
             if(parse.isNumOrVar(tokens[i+1]) == False):
+                #if not a function as well
                 #must have number, "(" or "VAR" to right
-                if(tokens[i+1].type != "LPAR"):
+                if(tokens[i+1].type != "LPAR" and tokens[i+1].type != "FUNC"):
                     return False
             
             if(parse.isNumOrVar(tokens[i-1]) == False):
-                #must have number, "(" or "VAR" to right
+                #must have number, ")" or "VAR" to left
                 if(tokens[i-1].type != "RPAR"):
                     return False
                 
@@ -204,9 +213,13 @@ def _validateTokens(tokens):
             parStack.append("LPAR")
 
             if(i != 0):
-                if (parse.isOperator(tokens[i-1]) == False):
+                if (parse.isOperator(tokens[i-1]) == False and tokens[i-1].type != "FUNC"):
+                    print(2)
+                    #must be operator or function to left of LPAR (
                     return False
+                    
                 if (parse.isNumOrVar(tokens[i+1]) == False):
+                    print(3)
                     return False
 
         elif(tokens[i].type == "RPAR"):
@@ -243,7 +256,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+pi"
+    lex = "5+sin(3+2)"
 
     print(lex)
     tokens = eqToTokens(lex)
