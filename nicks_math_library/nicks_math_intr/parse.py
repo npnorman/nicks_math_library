@@ -9,6 +9,9 @@ import operationTree
 def _postfixToPrefix(tokens):
     #from geeks4geeks
 
+    if(tokens == None):
+        return None
+
     stack = []
 
     #for all tokens in tokens
@@ -34,6 +37,9 @@ def _infixToPostfix(tokens):
     #use shunting yard algorithm  **p.s. thanks edwin
     #pulled from wikipedia
     #tokens are of type Token()
+
+    if(tokens == None):
+        return None
     
     #output & stack
     output = []
@@ -116,6 +122,13 @@ def tokensToBinTree(eqn):
     
     #convert tokens to prefix to make it easier
     tokens = lexer.eqToTokens(eqn)
+
+    #if return None
+    if(tokens == None):
+        #not a correct list, print error and try again
+        print(f"UNKNOWN TOKEN ERROR: Lexer could not tokenize {eqn}")
+        return None
+
     postTokens = _infixToPostfix(tokens)
     preTokens = _postfixToPrefix(postTokens)
     #create the tree
@@ -153,7 +166,7 @@ if __name__ == "__main__":
 
     #set up equation
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    lex = "4^5"
+    lex = "5+(3)"
 
     #put into parser
     tree = tokensToBinTree(lex)
