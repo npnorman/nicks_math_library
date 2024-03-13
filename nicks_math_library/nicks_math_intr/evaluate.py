@@ -64,7 +64,7 @@ if __name__ == "__main__":
     #test
     #set up equation
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    lex = "2^ x"
+    lex = "2^x"
 
     #put into parser
     tree = parse.tokensToBinTree(lex)
