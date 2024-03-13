@@ -4,6 +4,7 @@
 
 import token as token
 import parse
+import math
 
 def eqToTokens(equation):
     #convert to list of tokens
@@ -14,6 +15,7 @@ def eqToTokens(equation):
     #temp token
     tempToken = None
     tempNum = ""
+    tempStr = ""
     tokens = []
 
     #store lecation of char
@@ -28,8 +30,18 @@ def eqToTokens(equation):
     for char in eq:
 
         #conversion
-        if(_isNumber(char) or _isNegative(char, eq, charIndex)):
+        if(_isNumber(char) or _isNegative(char, eq, charIndex)): #remove isNegative and replace with negativeCheck
             tempNum += char
+        
+        elif(char.isalpha()):
+        #if is text (x, e, pi, functionName)
+            if(char == "x"):
+                tokens.append(token.Token('sym', "VAR"))
+            else:
+                #not a variable
+                #do tempString
+                tempStr += char
+
         else:
             if(tempNum != ""):
                 #if tempNum is made of numbers
@@ -38,9 +50,14 @@ def eqToTokens(equation):
                 tempNum = ""
                 tokens.append(tempToken)
             #else if tempStr in not empty
+            elif(tempStr != ""):
+                #convert to math symbol or function
+                tempToken = _convertSymbolToken(tempStr)
+                tempStr = ""
+                tokens.append(tempToken)
 
             #convert current char
-            tempToken = _convertNonNumberToken(char)
+            tempToken = _convertOperatorToken(char)
 
             #append to list
             tokens.append(tempToken)
@@ -51,6 +68,11 @@ def eqToTokens(equation):
         #pass last number made
         tempToken = _convertNumberToken(tempNum)
         tempNum = ""
+        tokens.append(tempToken)
+    elif(tempStr != ""):
+        #pass last math symbol or function
+        tempToken = _convertSymbolToken(tempStr)
+        tempStr = ""
         tokens.append(tempToken)
 
 
@@ -95,16 +117,25 @@ def _convertNumberToken(str):
 
     return tempToken
 
-def _convertNonNumberToken(char):
+def _convertSymbolToken(str):
+    
+    #match to dictionary
+    knownSymbols = {
+        "e": math.e,
+        "pi": math.pi
+    }
+
+    if(knownSymbols.get(str) != None):
+        #symbol exists in the dictionary
+        return token.Token(knownSymbols.get(str), "NUM")
+
+    return None
+
+def _convertOperatorToken(char):
     
     tempToken = None
-    
-    #create a variable token and append
-    if(char == 'x'):
-        #if character is an x
-        tempToken = token.Token('sym', "VAR")
 
-    elif(char == "+"):
+    if(char == "+"):
         #if character is +, plus
         tempToken = token.Token('+', "PLUS")
 
@@ -212,7 +243,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5-(-x)"
+    lex = "5+pi"
 
     print(lex)
     tokens = eqToTokens(lex)
