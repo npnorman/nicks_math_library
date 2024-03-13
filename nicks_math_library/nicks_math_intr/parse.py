@@ -153,6 +153,7 @@ if __name__ == "__main__":
 
     #set up equation
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
+    lex = "4^5"
 
     #put into parser
     tree = tokensToBinTree(lex)

@@ -87,6 +87,10 @@ def _convertNonNumberToken(char):
         #if character is -, sub
         tempToken = token.Token(')', "RPAR")
 
+    elif(char == "^"):
+        #if character is ^, POW
+        tempToken = token.Token('^', "POW")
+
     else:
         tempToken = None
         print("unknown symbol",char)
@@ -96,7 +100,7 @@ def _convertNonNumberToken(char):
 #testing
 if __name__ == "__main__":
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    lex = "5 + 3.5 * (2 - 7)"
+    lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
     print(lex)
     print("converting")
