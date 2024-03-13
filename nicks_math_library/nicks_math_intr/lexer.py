@@ -7,6 +7,9 @@ import token as token
 def eqToTokens(equation):
     #convert to list of tokens
 
+    if(equation == ""):
+        return None
+
     #temp token
     tempToken = None
     tempNum = ""

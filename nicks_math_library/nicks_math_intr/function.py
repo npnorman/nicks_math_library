@@ -38,7 +38,11 @@ class N_function():
 
     def evaluate(self, x:float):
         #evaluates function
-        return evaluate.evaluateOpTree(self.operationTree.root, x)
+        if(self.operationTree != None):
+            return evaluate.evaluateOpTree(self.operationTree.root, x)
+        else:
+            print("ERROR: Cannot find tree")
+            return None
 
 
     def _buildTree(self):
@@ -48,6 +52,7 @@ class N_function():
 
 if __name__ == "__main__":
     
+    """
     #get input of equation
     print("Welcome to Nick's Math Library")
     print("Current Operators accepted are [+, -, *, /]")
@@ -72,3 +77,13 @@ if __name__ == "__main__":
         exitCheck = input("to exit enter exit()\n")
         if (exitCheck == "exit()"):
             keepGoing = False
+    """
+
+    equation = "5+"
+    f = N_function(equation)
+
+    print(f.evaluate(1))
+
+
+#while taking in func
+    #if returns error, try again
