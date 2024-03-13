@@ -4,6 +4,7 @@
 
 import token as token
 import parse
+import math
 
 def eqToTokens(equation):
     #convert to list of tokens
@@ -119,8 +120,16 @@ def _convertNumberToken(str):
 def _convertSymbolToken(str):
     
     #match to dictionary
+    knownSymbols = {
+        "e": math.e,
+        "pi": math.pi
+    }
 
-    return token.Token(str, "NUM")
+    if(knownSymbols.get(str) != None):
+        #symbol exists in the dictionary
+        return token.Token(knownSymbols.get(str), "NUM")
+
+    return None
 
 def _convertOperatorToken(char):
     
@@ -234,7 +243,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+el"
+    lex = "5+pi"
 
     print(lex)
     tokens = eqToTokens(lex)
