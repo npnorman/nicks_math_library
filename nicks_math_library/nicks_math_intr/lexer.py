@@ -138,6 +138,12 @@ def _validateTokens(tokens):
             #if LPAR, push to stack
             parStack.append("LPAR")
 
+            if(i != 0):
+                if (parse.isOperator(tokens[i-1]) == False):
+                    return False
+                if (parse.isNumOrVar(tokens[i+1]) == False):
+                    return False
+
         elif(tokens[i].type == "RPAR"):
             #if RPAR, pop stack (if stack is empty before pop, return false)
             if (len(parStack) == 0):
@@ -145,6 +151,12 @@ def _validateTokens(tokens):
                 return False
             else:
                 parStack.pop()
+
+            if(i != len(tokens)-1):
+                if (parse.isOperator(tokens[i+1]) == False):
+                    return False
+                if (parse.isNumOrVar(tokens[i-1]) == False):
+                    return False
     
     if (len(parStack) != 0):
         #if stack is not empty, mismatched parenthesis
@@ -159,7 +171,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+(3+4)"
+    lex = "5+3"
 
     print(lex)
     tokens = eqToTokens(lex)
