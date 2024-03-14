@@ -262,7 +262,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+((3+2))^2"
+    lex = "7*3+4*x+(ln(x)+6)"
 
     print(lex)
     tokens = eqToTokens(lex)

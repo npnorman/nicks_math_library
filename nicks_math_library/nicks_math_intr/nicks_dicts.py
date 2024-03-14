@@ -18,9 +18,7 @@ operations = {
     '-': "SUB",
     '*': "MULT",
     '/': "DIV",
-    '^': "POW",
-    '(': "RPAR",
-    ')': "LPAR"
+    '^': "POW"
 }
 
 #operators linked to functions
