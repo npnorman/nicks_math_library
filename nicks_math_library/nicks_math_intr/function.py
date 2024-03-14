@@ -9,6 +9,7 @@
 import parse
 from operationTree import OperationTree
 import evaluate
+import nicks_dicts as nd
 
 #function object
 class N_function():
@@ -52,35 +53,68 @@ class N_function():
 
 if __name__ == "__main__":
     
+    #function
+    newFunc = None
 
     #get input of equation
     print("Welcome to Nick's Math Library")
-    print("Current Operators accepted are [+, -, *, /, ^]")
-    print("Current Functions accepted are []")
-    print("To use a variable, please type 'x'")
-    print("f(x) = ", end="")
-
-    equation = input()
-    f = N_function(equation)
 
     keepGoing = True
     while(keepGoing):
-        #ask for x
-        print("x = ", end="")
-        x = input()
-        
-        try:
-            x = float(x)
-        except:
-            print("x not valid, defaulting to 1")
-            x = 1
+        #main loop
+        cli = input("N_M_L > ")
 
-
-        #print equation and x
-        print(f.equation)
-        print(f"f({x}) = {f(x)}")
-
-        #ask to exit
-        exitCheck = input("\ne() to exit\n")
-        if (exitCheck == "e()"):
+        if (cli == "e()"):
+            #exit
             keepGoing = False
+        elif(cli == "new func"):
+            
+            eqn = input("f(x) = ")
+
+            try:
+                newFunc = N_function(eqn)
+            except:
+                print("invalid function")
+        elif(cli == "eval"):
+            
+            #evaluate at x
+            try:
+                x = input("x = ")
+                x = float(x)
+                print(f"{newFunc.equation}")
+                print(f"f({x}) = {newFunc.evaluate(x)}")
+            except Exception as error:
+                print("Error:", error)
+        elif(cli == "help"):
+            #help command
+            #print how to use
+            print("To create a function type 'new func'")
+            print("To evaluate a function type 'eval'")
+            print("to view known operations type 'help -o'")
+            print("to view known functions type 'help -f'")
+            print("to view known symbols type 'help -s'")
+            pass
+        elif(cli == "help -o"):
+            #print known operations
+            print("Valid Operations")
+            for key in nd.operations:
+                print(f"{key}", end=" ")
+            print("")
+        elif(cli == "help -s"):
+            #print known symbols
+            print("Valid Symbols")
+            for key in nd.symbols:
+                print(f"{key}", end=" ")
+            print("")
+            pass
+        elif(cli == "help -f"):
+            #print known functions
+            print("Valid functions")
+            for key in nd.functions:
+                print(f"{key}", end=" ")
+            print("")
+            pass
+        else:
+            print("unknown command")
+            print("for help type 'help'")
+            print("to exit type 'e()'")
