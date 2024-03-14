@@ -5,6 +5,7 @@
 import token as token
 import parse
 import math
+import nicks_dicts as nd
 
 def eqToTokens(equation):
     #convert to list of tokens
@@ -120,30 +121,9 @@ def _convertNumberToken(str):
 def _convertSymbolToken(str):
     
     #match to dictionary
-    knownSymbols = {
-        "e": math.e,
-        "pi": math.pi,
-    }
+    knownSymbols = nd.symbols
 
-    knownFuncs = {
-        "abs": abs,
-        "factorial": math.factorial,
-        "sqrt": math.sqrt,
-        "log10": math.log10,
-        "ln": math.log,
-        "sin": math.sin,
-        "cos": math.cos,
-        "tan": math.tan,
-        "arcsin": math.asin,
-        "arccos": math.acos,
-        "arctan": math.atan,
-        "sinh": math.sinh,
-        "cosh": math.cosh,
-        "tanh": math.tanh,
-        "arcsinh": math.asinh,
-        "arccosh": math.acosh,
-        "arctanh": math.atanh
-    }
+    knownFuncs = nd.functions
 
     if(knownSymbols.get(str) != None):
         #symbol exists in the dictionary
@@ -159,21 +139,8 @@ def _convertOperatorToken(char):
     
     tempToken = None
 
-    if(char == "+"):
-        #if character is +, plus
-        tempToken = token.Token('+', "PLUS")
-
-    elif(char == "-"):
-        #if character is -, sub
-        tempToken = token.Token('-', "SUB")
-    
-    elif(char == "*"):
-        #if character is -, sub
-        tempToken = token.Token('*', "MULT")
-    
-    elif(char == "/"):
-        #if character is -, sub
-        tempToken = token.Token('/', "DIV")
+    if(nd.operations.get(char) != None):
+        tempToken = token.Token(char, nd.operations.get(char))
 
     elif(char == "("):
         #if character is -, sub
@@ -182,10 +149,6 @@ def _convertOperatorToken(char):
     elif(char == ")"):
         #if character is -, sub
         tempToken = token.Token(')', "RPAR")
-
-    elif(char == "^"):
-        #if character is ^, POW
-        tempToken = token.Token('^', "POW")
 
     else:
         tempToken = None
@@ -282,7 +245,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+((3+2))^2"
+    lex = "7*3+4*x+(ln(x)+6)"
 
     print(lex)
     tokens = eqToTokens(lex)

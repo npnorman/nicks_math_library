@@ -5,6 +5,7 @@
 import token
 import lexer
 import operationTree
+import nicks_dicts
 
 def _postfixToPrefix(tokens):
     #from geeks4geeks
@@ -156,9 +157,9 @@ def isNumOrVar(token):
 
 def isOperator(token):
     res = False
-    operators = {"PLUS": 2, "SUB": 2, "MULT": 3, "DIV": 3, "POW": 4}
+    operators = nicks_dicts.operations
     
-    if(operators.get(token.type) == None):
+    if(operators.get(token.value) == None):
         #not an operator
         res = False
     else:
