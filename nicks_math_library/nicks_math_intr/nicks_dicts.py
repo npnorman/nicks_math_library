@@ -22,17 +22,16 @@ operations = {
 }
 
 #operators linked to functions
-
-
-#Valid Functions
-functions = {
-    #operation functions
+operationFunctions = {
     "PLUS": nhf.plus,
     "SUB": nhf.minus,
     "MULT": nhf.mult,
     "DIV": nhf.div,
     "POW": nhf.pow,
-    #end operation functions
+}
+
+#Valid Functions
+functions = {
     "abs": abs,
     "factorial": math.factorial,
     "sqrt": math.sqrt,

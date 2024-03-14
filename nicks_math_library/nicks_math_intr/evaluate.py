@@ -31,7 +31,7 @@ def evaluateOpTree(node:operationTree.Node, x:float):
         #if operator
         #figure out which
         #use nicks handy functions
-        dict = nd.functions
+        dict = nd.operationFunctions
         
         func = dict.get(node.token.type)
 
