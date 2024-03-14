@@ -172,12 +172,7 @@ if __name__ == "__main__":
 
     #set up equation
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    lex = "5+sin(3)"
-
-    #put into parser
-    #tree = tokensToBinTree(lex)
-    #print tree
-    #tree.printTree(tree.root)
+    lex = "5+sin(sin(3+2))"
 
     tokens = lexer.eqToTokens(lex)
     for t in tokens:
@@ -190,3 +185,8 @@ if __name__ == "__main__":
     print("")
     for t in preTokens:
         print(f"prefix: {t}")
+
+    print("")
+
+    tree = tokensToBinTree(lex)
+    tree.printTree(tree.root)

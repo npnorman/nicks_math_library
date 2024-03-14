@@ -181,12 +181,14 @@ def _validateTokens(tokens):
 
     #if no tokens, fail
     if (len(tokens) == 0):
+        print(-3)
         return False
     
     parStack = []
 
     for tok in tokens:
         if(tok == None):
+            print(-2)
             return False
 
     for i in range(0, len(tokens)):
@@ -194,17 +196,20 @@ def _validateTokens(tokens):
 
             #cant be first or last
             if(i == 0 or i == len(tokens) - 1):
+                print(-1)
                 return False
 
             if(parse.isNumOrVar(tokens[i+1]) == False):
                 #if not a function as well
                 #must have number, "(" or "VAR" to right
                 if(tokens[i+1].type != "LPAR" and tokens[i+1].type != "FUNC"):
+                    print(0)
                     return False
             
             if(parse.isNumOrVar(tokens[i-1]) == False):
                 #must have number, ")" or "VAR" to left
                 if(tokens[i-1].type != "RPAR"):
+                    print(1)
                     return False
                 
         elif(tokens[i].type == "LPAR"):
@@ -213,12 +218,13 @@ def _validateTokens(tokens):
             parStack.append("LPAR")
 
             if(i != 0):
-                if (parse.isOperator(tokens[i-1]) == False and tokens[i-1].type != "FUNC"):
+                if (parse.isOperator(tokens[i-1]) == False and tokens[i-1].type != "FUNC" and tokens[i-1].type != "LPAR"):
                     print(2)
-                    #must be operator or function to left of LPAR (
+                    #must be operator or function to left of LPAR ( or other parenthesis
                     return False
                     
-                if (parse.isNumOrVar(tokens[i+1]) == False):
+                if (parse.isNumOrVar(tokens[i+1]) == False and tokens[i+1].type != "FUNC" and tokens[i+1].type != "LPAR"):
+                    #right of LPAR (_ must me number, function, or left parenthesis
                     print(3)
                     return False
 
@@ -231,9 +237,13 @@ def _validateTokens(tokens):
                 parStack.pop()
 
             if(i != len(tokens)-1):
-                if (parse.isOperator(tokens[i+1]) == False):
+                if (parse.isOperator(tokens[i+1]) == False and tokens[i+1].type != "RPAR"):
+                    #must be operator to right of )
+                    print(4)
                     return False
-                if (parse.isNumOrVar(tokens[i-1]) == False):
+                if (parse.isNumOrVar(tokens[i-1]) == False and tokens[i+1].type != "RPAR"):
+                    #must be non-number to left of )
+                    print(5)
                     return False
     
     if (len(parStack) != 0):
@@ -256,7 +266,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+sin(3+2)"
+    lex = "5+(((3+2)))"
 
     print(lex)
     tokens = eqToTokens(lex)
