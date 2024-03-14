@@ -10,7 +10,6 @@ import os
 import sys
 import parse
 import operationTree
-import math
 
 #get nicks handy functions
 p_d = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,12 +49,27 @@ def evaluateOpTree(node:operationTree.Node, x:float):
         func = dict.get(node.token.type)
 
         #get numbers for function
-        Num1 = evaluateOpTree(node.left, x)
-        Num2 = evaluateOpTree(node.right,x)
+        num1 = evaluateOpTree(node.left, x)
+        num2 = evaluateOpTree(node.right,x)
         
         #return Num1 func Num2
-        res = func(Num1, Num2)
+        res = func(num1, num2)
         return res
+    
+    elif (node.token.type == "FUNC"):
+        #evaluating a function
+
+        #we know a function only has a left
+        #and it holds the function in its own token type
+        func = node.token.value
+
+        #get numbers for the function
+        num3 = evaluateOpTree(node.left, x)
+
+        #return the function
+        res = func(num3)
+        return res
+        
     
     print("unaccounted for")
     return None
@@ -64,7 +78,7 @@ if __name__ == "__main__":
     #test
     #set up equation
     lex = "5 + 3.5 * x - 4 / 76 + (0.2 + 4) + 5.8"
-    lex = "x-2"
+    lex = "sin(pi/2) + x"
 
     #put into parser
     tree = parse.tokensToBinTree(lex)

@@ -241,8 +241,8 @@ def _validateTokens(tokens):
                     #must be operator to right of )
                     print(4)
                     return False
-                if (parse.isNumOrVar(tokens[i-1]) == False and tokens[i+1].type != "RPAR"):
-                    #must be non-number to left of )
+                if (parse.isNumOrVar(tokens[i-1]) == False and tokens[i-1].type != "RPAR"):
+                    #must be number or ) to left of )
                     print(5)
                     return False
     
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     lex = "5 + 3.5 * (2 - 7) + 3^4"
     #lex = "5 + (3 - 3)"
 
-    lex = "5+(((3+2)))"
+    lex = "5+((3+2))^2"
 
     print(lex)
     tokens = eqToTokens(lex)
