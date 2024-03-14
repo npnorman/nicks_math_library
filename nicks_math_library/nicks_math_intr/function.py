@@ -56,6 +56,7 @@ if __name__ == "__main__":
     #get input of equation
     print("Welcome to Nick's Math Library")
     print("Current Operators accepted are [+, -, *, /, ^]")
+    print("Current Functions accepted are []")
     print("To use a variable, please type 'x'")
     print("f(x) = ", end="")
 
