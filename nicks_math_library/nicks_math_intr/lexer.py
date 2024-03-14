@@ -122,7 +122,7 @@ def _convertSymbolToken(str):
     #match to dictionary
     knownSymbols = {
         "e": math.e,
-        "pi": math.pi,
+        "pi": math.pi
     }
 
     knownFuncs = {
