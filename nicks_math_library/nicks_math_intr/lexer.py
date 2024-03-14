@@ -139,21 +139,8 @@ def _convertOperatorToken(char):
     
     tempToken = None
 
-    if(char == "+"):
-        #if character is +, plus
-        tempToken = token.Token('+', "PLUS")
-
-    elif(char == "-"):
-        #if character is -, sub
-        tempToken = token.Token('-', "SUB")
-    
-    elif(char == "*"):
-        #if character is -, sub
-        tempToken = token.Token('*', "MULT")
-    
-    elif(char == "/"):
-        #if character is -, sub
-        tempToken = token.Token('/', "DIV")
+    if(nd.operations.get(char) != None):
+        tempToken = token.Token(char, nd.operations.get(char))
 
     elif(char == "("):
         #if character is -, sub
@@ -162,10 +149,6 @@ def _convertOperatorToken(char):
     elif(char == ")"):
         #if character is -, sub
         tempToken = token.Token(')', "RPAR")
-
-    elif(char == "^"):
-        #if character is ^, POW
-        tempToken = token.Token('^', "POW")
 
     else:
         tempToken = None
