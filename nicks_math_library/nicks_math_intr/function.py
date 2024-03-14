@@ -6,9 +6,9 @@
 #input: function as a string
 #output: a function that you acn evaluate
 
-import parse
+import parse as parse
 from operationTree import OperationTree
-import evaluate
+import evaluate as evaluate
 import nicks_dicts as nd
 
 #function object
@@ -79,8 +79,8 @@ if __name__ == "__main__":
             
             #evaluate at x
             try:
-                x = input("x = ")
-                x = float(x)
+                xCLI = input("x = ")
+                x = eval(xCLI)
                 print(f"{newFunc.equation}")
                 print(f"f({x}) = {newFunc.evaluate(x)}")
             except Exception as error:

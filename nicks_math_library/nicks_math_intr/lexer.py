@@ -3,7 +3,7 @@
 #March 2024
 
 import token as token
-import parse
+import parse as parse
 import math
 import nicks_dicts as nd
 

@@ -2,10 +2,10 @@
 #Nicholas Norman
 #March 2024
 
-import token
-import lexer
-import operationTree
-import nicks_dicts
+import token as token
+import lexer as lexer
+import operationTree as operationTree
+import nicks_dicts as nicks_dicts
 
 def _postfixToPrefix(tokens):
     #from geeks4geeks

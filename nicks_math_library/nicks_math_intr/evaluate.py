@@ -6,8 +6,8 @@
 #input << tree, some x to replace sym
 #output >> number (float)
 
-import parse
-import operationTree
+import parse as parse
+import operationTree as operationTree
 import nicks_dicts as nd
 
 def evaluateOpTree(node:operationTree.Node, x:float):

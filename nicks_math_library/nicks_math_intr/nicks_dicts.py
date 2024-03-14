@@ -48,7 +48,7 @@ functions = {
     "tanh": math.tanh,
     "arcsinh": math.asinh,
     "arccosh": math.acosh,
-    "arctanh": math.atanh
+    "arctanh": math.atanh,
 }
 
 #Valid Symbols
