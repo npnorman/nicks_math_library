@@ -2,21 +2,39 @@
 #Nicholas Norman
 #March 2024
 
+import os
+import sys
 import math
+
+#get nicks handy functions
+p_d = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(p_d)
+
+import nicks_handy_funcs as nhf
 
 #Valid Operations
 operations = {
-    "+": "PLUS",
-    "-": "SUB",
-    "*": "MULT",
-    "/": "DIV",
-    "^": "POW",
-    "(": "RPAR",
-    ")": "LPAR"
+    '+': "PLUS",
+    '-': "SUB",
+    '*': "MULT",
+    '/': "DIV",
+    '^': "POW",
+    '(': "RPAR",
+    ')': "LPAR"
 }
+
+#operators linked to functions
+
 
 #Valid Functions
 functions = {
+    #operation functions
+    "PLUS": nhf.plus,
+    "SUB": nhf.minus,
+    "MULT": nhf.mult,
+    "DIV": nhf.div,
+    "POW": nhf.pow,
+    #end operation functions
     "abs": abs,
     "factorial": math.factorial,
     "sqrt": math.sqrt,
