@@ -50,7 +50,7 @@ class OperationTree():
         if(node.left == None):
             #base case
             return node
-        elif(parse.isOperator(node.left.token)):
+        elif(parse.isOperator(node.left.token) or node.left.token.type == "FUNC"):
             #go deeper
             res = None
             res = self.lowestOperatorOpen(node.left)
@@ -61,7 +61,7 @@ class OperationTree():
         if(node.right == None):
             #base case
             return node
-        elif(parse.isOperator(node.right.token)):
+        elif(parse.isOperator(node.right.token) or node.right.token.type == "FUNC"):
             #go deeper
             res = None
             res = self.lowestOperatorOpen(node.right)
@@ -88,9 +88,21 @@ class OperationTree():
         if (ln.left == None):
             #if open set left
             ln.left = tok
+
+            #function check
+            #make sure a function token only has a left branch
+            if (ln.left.token.type == "FUNC"):
+                ln.left.right = token.Token("∅", "EMPTY")
+
         elif (ln.right == None):
             #if open set right
             ln.right = tok
+            
+            #function check
+            #make sure a function token only has a left branch
+            if (ln.right.token.type == "FUNC"):
+                ln.right.right = token.Token("∅", "EMPTY")
+
         else:
             #filled up/dead end
             print(f"dead end with : {tok}")
