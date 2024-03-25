@@ -80,9 +80,9 @@ if __name__ == "__main__":
             #evaluate at x
             try:
                 xCLI = input("x = ")
-                x = eval(xCLI)
+                xFunc = N_function(xCLI)
                 print(f"{newFunc.equation}")
-                print(f"f({x}) = {newFunc.evaluate(x)}")
+                print(f"f({xFunc.evaluate(1)}) = {newFunc.evaluate(xFunc.evaluate(1))}")
             except Exception as error:
                 print("Error:", error)
         elif(cli == "help"):
@@ -93,6 +93,7 @@ if __name__ == "__main__":
             print("to view known operations type 'help -o'")
             print("to view known functions type 'help -f'")
             print("to view known symbols type 'help -s'")
+            print("type clear to clear screen")
             pass
         elif(cli == "help -o"):
             #print known operations
@@ -114,7 +115,14 @@ if __name__ == "__main__":
                 print(f"{key}", end=" ")
             print("")
             pass
+        elif(cli == "clear"):
+            for i in range(0,50):
+                print("")
         else:
-            print("unknown command")
-            print("for help type 'help'")
-            print("to exit type 'e()'")
+            try:
+                tempF = N_function(cli)
+                print(tempF.evaluate(1))
+            except:
+                print("unknown command")
+                print("for help type 'help'")
+                print("to exit type 'e()'")
